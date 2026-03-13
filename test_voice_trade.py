@@ -62,7 +62,7 @@ def test_main_transcript_mode():
 
 def test_audit_log():
     """Verify audit log is written."""
-    log_path = Path("logs/session.jsonl")
+    log_path = Path(__file__).parent / "logs" / "session.jsonl"
     if log_path.exists():
         lines = log_path.read_text().strip().split("\n")
         if lines:
@@ -75,6 +75,19 @@ def test_audit_log():
     print("SKIP: audit_log (no logs yet)")
 
 
+def test_missing_file_exits_nonzero():
+    """Missing --file should exit with code 1."""
+    import subprocess
+    result = subprocess.run(
+        [sys.executable, "main.py", "--mode", "paper", "--file", "/nonexistent/audio.wav"],
+        cwd=Path(__file__).parent,
+        capture_output=True,
+        timeout=5,
+    )
+    assert result.returncode != 0, "Expected non-zero exit for missing file"
+    print("OK: missing_file_exits_nonzero")
+
+
 if __name__ == "__main__":
     errors = []
     for name, fn in [
@@ -83,6 +96,7 @@ if __name__ == "__main__":
         ("binance_executor", test_binance_executor_paper),
         ("main_transcript", test_main_transcript_mode),
         ("audit_log", test_audit_log),
+        ("missing_file", test_missing_file_exits_nonzero),
     ]:
         try:
             fn()

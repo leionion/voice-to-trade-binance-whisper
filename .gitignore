@@ -11,3 +11,6 @@ test_results.txt
 pip_list.txt
 parser_ok.txt
 run_output.txt
+run_test.wav
+test_audio.wav
+run_full_test_results.txt

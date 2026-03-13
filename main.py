@@ -129,6 +129,15 @@ def main():
         "max_order_usdt": trading_cfg.get("max_order_usdt", 500),
     }
 
+    # Validate --file before starting session
+    if args.file:
+        file_path = Path(args.file)
+        if not file_path.is_absolute():
+            file_path = Path(__file__).resolve().parent / args.file
+        if not file_path.exists():
+            print("ERROR: File not found:", args.file, file=sys.stderr)
+            sys.exit(1)
+
     print("═" * 59)
     print(f"  VOICE-TO-TRADE  |  Session Start: {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC")
     print("═" * 59)
@@ -147,7 +156,10 @@ def main():
                 logger.info(f"[{ts}] 📝  Transcript (direct): \"{transcript}\"")
                 single_file = True
             elif args.file:
-                with open(args.file, "rb") as f:
+                file_path = Path(args.file)
+                if not file_path.is_absolute():
+                    file_path = Path(__file__).resolve().parent / args.file
+                with open(file_path, "rb") as f:
                     wav_bytes = f.read()
                 duration_s = len(wav_bytes) / 32000  # rough
                 logger.info(f"Loaded {args.file} ({duration_s:.1f}s)")
@@ -262,10 +274,14 @@ def main():
         except KeyboardInterrupt:
             print()
             break
+        except FileNotFoundError as e:
+            logger.error("File not found: %s", e)
+            sys.exit(1)
         except Exception as e:
             logger.exception("Error: %s", e)
-            if args.file:
-                break
+            if args.file or args.transcript:
+                sys.exit(1)
+            # Mic mode: continue to next recording
 
     print("═" * 59)
     print(f"  End of snippet  |  {order_count} orders  |  {parse_errors} parse errors")
