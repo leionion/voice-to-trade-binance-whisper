@@ -1,0 +1,18 @@
+# Voice-to-Trade Binance Whisper — Beta dependencies
+# Python 3.10+
+
+# Binance API
+python-binance>=1.0.19
+
+# Speech-to-text
+openai-whisper>=20231117
+openai>=1.0.0  # for Whisper API mode
+
+# Audio capture
+PyAudio>=0.2.14
+
+# Config
+PyYAML>=6.0
+
+# Optional: spoken confirmation (confirmation_audio in config)
+# pip install pyttsx3  # optional; may need espeak on Linux

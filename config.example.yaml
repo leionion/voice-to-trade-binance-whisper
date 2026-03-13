@@ -1,0 +1,27 @@
+# config.example.yaml — voice-to-trade-binance-whisper
+# Copy to config.yaml and fill in your values
+
+binance:
+  api_key: "YOUR_BINANCE_API_KEY"
+  api_secret: "YOUR_BINANCE_API_SECRET"
+  testnet: false                  # true = Binance testnet, false = live
+
+whisper:
+  model: "base.en"                # tiny.en / base.en / small.en / medium.en
+  mode: "local"                   # "local" (offline) or "api" (OpenAI cloud)
+  api_key: ""                     # Only required if mode: api
+
+audio:
+  silence_threshold: 500          # Lower = more sensitive mic trigger
+  silence_duration_ms: 800        # ms of silence before segment ends
+  sample_rate: 16000
+
+trading:
+  mode: "paper"                   # "paper" or "live" — change deliberately
+  default_quote: "USDT"           # Appended when symbol is ambiguous
+  max_order_usdt: 500             # Hard cap per single voice order
+  confirmation_audio: true       # Speak back parsed intent before sending
+
+logging:
+  level: "INFO"
+  output: "logs/session.jsonl"   # Append-only JSONL audit trail

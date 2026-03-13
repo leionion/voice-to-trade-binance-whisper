@@ -1,0 +1,12 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.Python
+config.yaml
+logs/
+*.wav
+test_results.txt
+pip_list.txt
+parser_ok.txt
+run_output.txt

@@ -178,6 +178,15 @@ nano config.yaml   # Add your Binance API key/secret and tune settings
 python main.py --mode paper
 ```
 
+**Test without a microphone:**
+```bash
+python main.py --mode paper --transcript "buy 0.001 btc at market"
+```
+Or with a WAV file (record with any tool, or use `scripts/make_sample_wav.py sample.wav` for a silence file):
+```bash
+python main.py --mode paper --file your_recording.wav
+```
+
 > ⚠️ `--mode paper` runs all commands against live prices but places **no real orders**. Verify parsing is correct for your speech patterns before switching to `--mode live`.
 
 ---
