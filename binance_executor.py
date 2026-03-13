@@ -68,15 +68,20 @@ def _get_symbol_info(client, symbol: str) -> Optional[dict]:
 def _round_quantity(symbol_info: Optional[dict], qty: float, symbol: str) -> float:
     """Round quantity to exchange lot size."""
     if not symbol_info:
-        # Heuristic
         if qty >= 1:
             return round(qty, 2)
         return round(qty, 5)
     for f in symbol_info.get("filters", []):
         if f.get("filterType") == "LOT_SIZE":
             step = float(f.get("stepSize", "0.001"))
-            precision = len(str(step).rstrip("0").split(".")[-1])
-            return round(qty - (qty % step), precision)
+            # Safely derive precision from step (handles 1.0, 0.001, 1e-5)
+            step_str = f"{step:.10f}".rstrip("0")
+            if "." in step_str:
+                prec = len(step_str.split(".")[-1])
+            else:
+                prec = 5
+            prec = max(1, min(prec, 8))
+            return round(qty - (qty % step), prec)
     return round(qty, 5)
 
 

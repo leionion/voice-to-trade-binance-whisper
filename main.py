@@ -7,11 +7,26 @@ Mic → Whisper → Intent Parser → Binance (paper or live).
 import argparse
 import json
 import logging
+import os
 import sys
 from datetime import datetime
 from pathlib import Path
 
 import yaml
+
+# Load .env if present (optional)
+def _load_dotenv():
+    env_path = Path(__file__).resolve().parent / ".env"
+    if env_path.exists():
+        for line in env_path.read_text().splitlines():
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                k, v = line.split("=", 1)
+                k, v = k.strip(), v.strip().strip("'\"").strip()
+                if k and v:
+                    os.environ.setdefault(k, v)
+
+_load_dotenv()
 
 from audio_capture import PYAUDIO_AVAILABLE, record_until_silence
 from intent_parser import parse_intent
@@ -30,7 +45,7 @@ def load_config(path: str = "config.yaml") -> dict:
 
 
 def _speak(text: str) -> None:
-    """Optional TTS feedback."""
+    """Optional TTS feedback (pyttsx3). Set ELEVENLABS_API_KEY for cloud TTS (optional)."""
     try:
         import pyttsx3
         engine = pyttsx3.init()
@@ -80,11 +95,19 @@ def main():
         print("ERROR: config.yaml is empty or invalid.")
         sys.exit(1)
 
-    binance_cfg = config.get("binance", {})
-    whisper_cfg = config.get("whisper", {})
+    binance_cfg = dict(config.get("binance", {}))
+    whisper_cfg = dict(config.get("whisper", {}))
     audio_cfg = config.get("audio", {})
     trading_cfg = config.get("trading", {})
     log_cfg = config.get("logging", {})
+
+    # Env vars override config (for security: keep keys out of config files)
+    if os.environ.get("OPENAI_API_KEY") and not whisper_cfg.get("api_key"):
+        whisper_cfg["api_key"] = os.environ["OPENAI_API_KEY"]
+    if os.environ.get("BINANCE_API_KEY") and not binance_cfg.get("api_key"):
+        binance_cfg["api_key"] = os.environ["BINANCE_API_KEY"]
+    if os.environ.get("BINANCE_API_SECRET") and not binance_cfg.get("api_secret"):
+        binance_cfg["api_secret"] = os.environ["BINANCE_API_SECRET"]
 
     level = log_cfg.get("level", "INFO")
     logging.basicConfig(level=getattr(logging, level), format="%(message)s")

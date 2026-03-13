@@ -4,6 +4,7 @@ __pycache__/
 *.pyo
 .Python
 config.yaml
+.env
 logs/
 *.wav
 test_results.txt

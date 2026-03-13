@@ -167,11 +167,20 @@ pip install openai-whisper
 # Windows: https://ffmpeg.org/download.html
 ```
 
-**Step 4 — Configure your credentials and risk parameters**
+**Step 4 — Configure credentials (optional for paper mode)**
 ```bash
 cp config.example.yaml config.yaml
-nano config.yaml   # Add your Binance API key/secret and tune settings
+# Option A: Edit config.yaml
+# Option B: Use .env (recommended for keys):
+cp .env.example .env
+# Add OPENAI_API_KEY for Whisper API mode, BINANCE_API_KEY/SECRET for live trading
 ```
+
+| Key | When needed | Env var |
+|-----|-------------|--------|
+| Binance API | Live trading only | `BINANCE_API_KEY`, `BINANCE_API_SECRET` |
+| OpenAI API | Whisper cloud mode (`whisper.mode: api`) | `OPENAI_API_KEY` |
+| Paper mode | None | — |
 
 **Step 5 — Start in paper trading mode (always start here)**
 ```bash
