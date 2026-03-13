@@ -50,6 +50,10 @@ This utility closes that gap with a three-stage pipeline:
 
 ## 📡 Live Execution Output
 
+Here's a screen capture of the voice-to-trade pipeline in action:
+
+![Voice-to-trade demo — live console output](media.gif)
+
 Real session log from paper trading mode:
 ```
 ═══════════════════════════════════════════════════════════

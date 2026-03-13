@@ -115,6 +115,8 @@ def main():
 
     log_output = log_cfg.get("output", "logs/session.jsonl")
     log_path = Path(log_output)
+    if not log_path.is_absolute():
+        log_path = Path(__file__).resolve().parent / log_output
     log_path.parent.mkdir(parents=True, exist_ok=True)
 
     paper = args.mode == "paper"
