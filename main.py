@@ -277,11 +277,17 @@ def main():
         except FileNotFoundError as e:
             logger.error("File not found: %s", e)
             sys.exit(1)
+        except OSError as e:
+            # No audio device, permission denied, etc. — unrecoverable in mic mode
+            logger.error("Audio device error: %s", e)
+            logger.info("Use --file or --transcript to test without a microphone.")
+            sys.exit(1)
         except Exception as e:
             logger.exception("Error: %s", e)
             if args.file or args.transcript:
                 sys.exit(1)
-            # Mic mode: continue to next recording
+            # Mic mode: unrecoverable errors (e.g. device fail) exit above; other errors exit here
+            sys.exit(1)
 
     print("═" * 59)
     print(f"  End of snippet  |  {order_count} orders  |  {parse_errors} parse errors")

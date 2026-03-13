@@ -44,6 +44,9 @@ SYMBOL_ALIASES = {
     "polygon": "MATIC",
 }
 
+# Words to reject as symbols (Whisper hallucinations from silence/noise)
+SYMBOL_BLOCKLIST = {"you", "the", "a", "i", "me", "oh", "um", "uh", "so", "and", "or"}
+
 # Word forms for numbers
 WORD_NUMBERS = {
     "zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5,
@@ -110,6 +113,8 @@ def _parse_symbol(text: str, default_quote: str = "USDT") -> Optional[str]:
     if sym_match:
         base = sym_match.group(1).upper()
         if base in ["USDT", "USD", "BUSD"]:
+            return None
+        if base.lower() in SYMBOL_BLOCKLIST:
             return None
         return f"{base}{default_quote}"
     return None

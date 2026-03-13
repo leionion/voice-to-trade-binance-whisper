@@ -159,6 +159,15 @@ source venv/bin/activate        # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+**Step 2b — Install PortAudio (required for microphone mode)**
+```bash
+# Ubuntu/Debian:
+sudo apt install portaudio19-dev
+# macOS:  brew install portaudio
+# Windows: PyAudio wheel usually includes it
+pip install PyAudio
+```
+
 **Step 3 — Install Whisper and ffmpeg**
 ```bash
 pip install openai-whisper
