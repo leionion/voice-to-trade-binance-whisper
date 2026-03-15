@@ -308,5 +308,3 @@ When you reach out, mention three things:
 That's it. No pitch deck, no form. I respond to traders who've actually read the repo.
 
 > The gap between this repo and the private build isn't time. It's features that only make sense once you've watched a miscaptured voice command try to place an order. The private build was built after that happened.
-
----
