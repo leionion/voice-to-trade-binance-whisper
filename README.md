@@ -1,26 +1,34 @@
-<!-- voice-to-trade-binance-whisper | voice trading bot binance | whisper trading python -->
-<!-- how to build voice trading bot python 2026 | binance voice command trading | speech to trade crypto -->
-<!-- best voice trading bot binance 2026 | hands-free binance trading tool | voice controlled crypto bot -->
-<!-- whisper api binance trading | binance speech recognition trading python | openai whisper trade executor -->
-<!-- voice trade binance github | whisper binance bot full version | get voice trading bot binance access -->
-
 <div align="center">
 
-# Voice To Trade Binance Whisper
+# Voice to Trade Binance Whisper
 
-### *Say the trade. Watch it execute. Never touch the mouse again.*
+## Voice trading bot for Binance using Whisper, Python, and natural language order execution
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![OpenAI Whisper](https://img.shields.io/badge/OpenAI-Whisper-412991?style=for-the-badge&logo=openai&logoColor=white)](https://github.com/openai/whisper)
-[![Binance API](https://img.shields.io/badge/Binance-API%20v3-F0B90B?style=for-the-badge&logo=binance&logoColor=black)](https://binance-docs.github.io/apidocs/)
-[![Status](https://img.shields.io/badge/Status-Beta%20%7C%20Shipping%20Daily-orange?style=for-the-badge)](https://github.com/leionion/voice-to-trade-binance-whisper)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
-
-**[→ How It Works](#-how-voice-to-trade-works) · [→ Live Output Demo](#-live-execution-output) · [→ vs. Other Tools](#-how-this-compares) · [→ Full Version](#-want-the-full-private-build)**
-
-> ⚡ This repo ships the core execution engine. The private build adds multi-pair queuing, confidence scoring, and exchange-agnostic routing. Serious traders — keep reading.
+This project uses **Whisper speech recognition**, **Python**, and the **Binance API** to execute crypto trades from natural language commands.
 
 </div>
+
+![Voice-to-trade demo — live console output](media.gif)
+---
+
+## What This Project Does
+
+Voice to Trade Binance Whisper is a **voice trading bot for Binance** that lets you place crypto trades using spoken commands.
+
+Instead of manually clicking through exchange interfaces, you can say commands like:
+
+- buy 0.5 BTC at market
+- sell 1 ETH at limit 3500
+- close my BTC position
+
+The system converts speech to text with **Whisper**, parses the trading intent, and sends the order to **Binance** through the API.
+
+This project is built for:
+
+- Binance traders who want faster execution
+- developers building voice-controlled trading tools
+- traders testing hands-free crypto workflows
+- users who want local speech-to-trade support with optional offline transcription
 
 ---
 
@@ -52,7 +60,6 @@ This utility closes that gap with a three-stage pipeline:
 
 Here's a screen capture of the voice-to-trade pipeline in action:
 
-![Voice-to-trade demo — live console output](media.gif)
 
 Real session log from paper trading mode:
 ```
@@ -303,29 +310,3 @@ That's it. No pitch deck, no form. I respond to traders who've actually read the
 > The gap between this repo and the private build isn't time. It's features that only make sense once you've watched a miscaptured voice command try to place an order. The private build was built after that happened.
 
 ---
-
-## ⚠️ Risk Disclaimer
-
-**This software is in active beta development.** Voice-to-text transcription errors, network failures, and parser edge cases can produce unexpected order behavior. Always:
-
-- Start with `--mode paper` and validate your specific speech patterns before going live
-- Set `max_order_usdt` to a value you are comfortable losing in a worst-case misparse
-- Never leave a live session unmonitored
-- This is not financial advice. Trading cryptocurrencies involves substantial risk of loss.
-- The developers of this software are not responsible for financial losses resulting from its use
-
----
-
-<div align="center">
-
-**Built with:** Python · OpenAI Whisper · python-binance · PyAudio · ffmpeg
-
-*Say the trade. Watch it execute.*
-
-[![GitHub](https://img.shields.io/badge/Contact-@leionion-181717?style=for-the-badge&logo=github)](https://github.com/leionion)
-
-</div>
-
-<!-- get voice trading bot binance | voice-to-trade-binance-whisper full version | contact leionion -->
-<!-- binance voice trading private build | whisper binance bot full access | hands-free binance trading private -->
-<!-- binance whisper bot developer contact | voice trade executor private version | leionion github trading bot -->
